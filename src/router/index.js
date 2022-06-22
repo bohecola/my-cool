@@ -4,6 +4,10 @@ const routes = [
   {
     path: '/',
     component: () => import('@/views/home')
+  },
+  {
+    path: '/login',
+    component: () => import('@/pages/login')
   }
 ];
 

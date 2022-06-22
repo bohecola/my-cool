@@ -6,7 +6,6 @@ import 'nprogress/nprogress.css';
 
 NProgress.configure({ showSpinner: false });
 
-
 const service = axios.create({
   baseURL: 'http://localhost:3000/api/admin',
   timeout: 5000
