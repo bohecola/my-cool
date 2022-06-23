@@ -8,7 +8,11 @@ import 'element-plus/dist/index.css';
 
 import './assets/css/index.scss';
 
+import service from './api';
+
 const app = createApp(App);
+
+app.config.globalProperties.service = service;
 
 app
 .use(ElementPlus)

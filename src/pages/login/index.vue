@@ -1,5 +1,5 @@
 <script>
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, getCurrentInstance, reactive, ref } from "vue";
 import Logo from "@/assets/logo-text.png";
 
 export default defineComponent({
@@ -7,14 +7,22 @@ export default defineComponent({
     const form = reactive({
       username: '',
       password: '',
-      captchaId: '',
-      verifyCode: ''
+      // captchaId: '',
+      // verifyCode: ''
     });
 
     const saving = ref(false);
 
-    const toLogin = () => {
-      saving.value = true;
+    const instance = getCurrentInstance();
+
+    const { service } = instance.appContext.config.globalProperties;
+
+    
+
+    const toLogin = async () => {
+      const res = await service.Comm.login(form);
+      console.log(res);
+      // saving.value = true;
     };
 
     return {

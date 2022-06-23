@@ -1,7 +1,7 @@
 import request from '@/service/request';
 
 export const login = (data) => request({
-  url: '/login',
+  url: '/open/login',
   method: 'post',
   data
 });
