@@ -1,5 +1,6 @@
 <script>
-import { defineComponent, getCurrentInstance, reactive, ref } from "vue";
+import { defineComponent, reactive, ref } from "vue";
+import { useCool } from '@/cool';
 import Logo from "@/assets/logo-text.png";
 
 export default defineComponent({
@@ -11,18 +12,16 @@ export default defineComponent({
       // verifyCode: ''
     });
 
-    const saving = ref(false);
-
-    const instance = getCurrentInstance();
-
-    const { service } = instance.appContext.config.globalProperties;
-
+    const { router, service } = useCool();
     
+    console.log(service);
+
+    const saving = ref(false);
 
     const toLogin = async () => {
       const res = await service.Comm.login(form);
-      console.log(res);
-      // saving.value = true;
+
+      router.push('/')
     };
 
     return {

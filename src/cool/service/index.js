@@ -1,4 +1,4 @@
-const apiFiles = import.meta.globEager('./**/*.js');
+const apiFiles = import.meta.globEager('../api/**/*.js');
 
 const service = Object.keys(apiFiles).reduce((prev, path) => {
   const baseName = path.match(/\w+(?=\.js)/g)[0];
@@ -7,4 +7,6 @@ const service = Object.keys(apiFiles).reduce((prev, path) => {
   return prev;
 }, {});
 
-export default service;
+export function useService() {
+  return service;
+}
