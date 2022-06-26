@@ -1,8 +1,7 @@
 import axios from 'axios';
-import store from '@/store';
-import router from '@/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { router } from '../router';
 
 NProgress.configure({ showSpinner: false });
 

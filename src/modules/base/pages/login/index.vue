@@ -1,39 +1,3 @@
-<script>
-import { defineComponent, reactive, ref } from "vue";
-import { useCool } from '@/cool';
-import Logo from "@/assets/logo-text.png";
-
-export default defineComponent({
-  setup() {
-    const form = reactive({
-      username: '',
-      password: '',
-      // captchaId: '',
-      // verifyCode: ''
-    });
-
-    const { router, service } = useCool();
-    
-    console.log(service);
-
-    const saving = ref(false);
-
-    const toLogin = async () => {
-      const res = await service.Comm.login(form);
-
-      router.push('/')
-    };
-
-    return {
-      form,
-      saving,
-      toLogin,
-      Logo
-    };
-  }
-})
-</script>
-
 <template>
   <div class="page-login">
     <div class="box">
@@ -91,6 +55,60 @@ export default defineComponent({
     </div>
   </div>
 </template>
+
+<script>
+import { defineComponent, reactive, ref } from "vue";
+import { ElMessage } from 'element-plus'
+import { useCool } from '/@/cool';
+import Logo from "/@/assets/logo-text.png";
+
+export default defineComponent({
+  setup() {
+    const form = reactive({
+      username: '',
+      password: '',
+      // captchaId: '',
+      // verifyCode: ''
+    });
+
+    const { router, service } = useCool();
+
+    const saving = ref(false);
+
+    const toLogin = async () => {
+      if (!form.username) {
+        return ElMessage.error('用户名不能为空');
+      }
+
+      if (!form.password) {
+        return ElMessage.error('密码不能为空');
+      }
+
+      saving.value = true;
+
+      try {
+        await service.Comm.login(form).then((res) => {
+
+        });
+
+        router.push('/');
+
+      } catch(err) {
+        ElMessage.error(err.message);
+      }
+
+      saving.value = false;
+    };
+
+    return {
+      form,
+      saving,
+      toLogin,
+      Logo
+    };
+  }
+})
+</script>
 
 <style lang="scss" scoped>
   .page-login {
