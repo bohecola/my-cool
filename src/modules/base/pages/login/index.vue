@@ -60,6 +60,7 @@
 import { defineComponent, reactive, ref } from "vue";
 import { ElMessage } from 'element-plus'
 import { useCool } from '/@/cool';
+import { useBase } from '/$/base';
 import Logo from "/@/assets/logo-text.png";
 
 export default defineComponent({
@@ -72,6 +73,7 @@ export default defineComponent({
     });
 
     const { router, service } = useCool();
+    const { user } = useBase();
 
     const saving = ref(false);
 
@@ -88,7 +90,7 @@ export default defineComponent({
 
       try {
         await service.Comm.login(form).then((res) => {
-
+          user.setToken(res);
         });
 
         router.push('/');

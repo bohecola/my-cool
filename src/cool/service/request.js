@@ -1,6 +1,7 @@
 import axios from 'axios';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { useBase } from "/$/base";
 import { router } from '../router';
 
 NProgress.configure({ showSpinner: false });
@@ -11,9 +12,15 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(
-  config => {
-  
-    return config;
+  req => {
+    const { user } = useBase();
+
+    if (user.token) {
+      // 请求标识
+      req.headers['Authorization'] = user.token;
+    }
+    
+    return req;
   },
 
   error => {
@@ -24,7 +31,22 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   res => {
 
-    return res;
+    if (!res?.data) {
+      return res;
+    }
+
+    const { code, data, message } = res.data;
+
+    if (!code) {
+      return res.data;
+    }
+
+    switch (code) {
+      case 1000:
+        return data;
+      default:
+        return Promise.reject({ code, message });
+    }
   },
 
   (error) => {
