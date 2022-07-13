@@ -11,9 +11,12 @@ export default defineComponent({
     const { service } = useCool();
 
     onMounted(async () => {
-      await service.User.getUserList();
-      await service.Role.getRoleList();
-      await service.Menu.getMenuList();
+      const res = await Promise.allSettled([
+        service.user.getUserList(),
+        service.role.getRoleList(),
+        service.menu.getMenuList()
+      ]);
+      console.log(res);
     });
 
     return {};

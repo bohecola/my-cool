@@ -89,7 +89,7 @@ export default defineComponent({
       saving.value = true;
 
       try {
-        await service.Comm.login(form).then((res) => {
+        await service.open.login(form).then((res) => {
           user.setToken(res);
         });
 
