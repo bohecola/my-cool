@@ -31,6 +31,80 @@ export function getUrlParam(name) {
 	return null;
 }
 
+// 文件路径转对象
+export function deepFiles(list) {
+	const modules = {};
+
+	list.forEach((e) => {
+		const arr = e.path.split("/");
+		const parents = arr.slice(0, arr.length - 1);
+		const name = basename(e.path).replace(".ts", "");
+
+		let curr = modules;
+		let prev = null;
+		let key = null;
+
+		parents.forEach((k) => {
+			if (!curr[k]) {
+				curr[k] = {};
+			}
+
+			prev = curr;
+			curr = curr[k];
+			key = k;
+		});
+
+		if (name == "index") {
+			prev[key] = e.value;
+		} else {
+			curr[name] = e.value;
+		}
+	});
+
+	return modules;
+}
+
+// 文件名
+export function filename(path) {
+	return basename(path.substring(0, path.lastIndexOf(".")));
+}
+
+// 路径名称
+export function basename(path) {
+	let index = path.lastIndexOf("/");
+	index = index > -1 ? index : path.lastIndexOf("\\");
+	if (index < 0) {
+		return path;
+	}
+	return path.substring(index + 1);
+}
+
+// 文件扩展名
+export function extname(path) {
+	return path.substring(path.lastIndexOf(".") + 1);
+}
+
+// 横杠转驼峰
+export function toCamel(str) {
+	return str.replace(/([^-])(?:-+([^-]))/g, function ($0, $1, $2) {
+		return $1 + $2.toUpperCase();
+	});
+}
+
+// uuid
+export function uuid() {
+	const s = [];
+	const hexDigits = "0123456789abcdef";
+	for (let i = 0; i < 36; i++) {
+		s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+	}
+	s[14] = "4";
+	s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+	s[8] = s[13] = s[18] = s[23] = "-";
+
+	return s.join("");
+}
+
 // 浏览器信息
 export function getBrowser() {
 	const { clientHeight, clientWidth } = document.documentElement;
