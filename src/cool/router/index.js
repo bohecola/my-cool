@@ -4,7 +4,8 @@ import {
   createWebHashHistory,
   createWebHistory
 } from "vue-router";
-import { storage, config } from '/@/cool';
+import { storage } from '/@/cool';
+import { config } from '/@/cool/config';
 import { cloneDeep, isArray } from "lodash";
 
 // 视图文件
@@ -19,8 +20,18 @@ for (const i in views) {
 const routes = [
   {
     path: '/',
-    component: () => import('/@/views/home')
+    name: 'index',
+    component: () => import('/$/base/pages/layout/index.vue'),
+    children: [
+      {
+        path: '/',
+        name: '数据统计',
+        component: () => import('/@/views/home/index.vue')
+      },
+      ...config.app.router.views
+    ]
   },
+  ...config.app.router.pages,
   {
     path: '/login',
     component: () => import('/$/base/pages/login')
@@ -29,7 +40,7 @@ const routes = [
 
 // 创建
 const router = createRouter({
-  history: config.app.router.mode === 'history' ? createWebHistory() : createWebHashHistory(),
+  history: config.app.router.mode == 'history' ? createWebHistory() : createWebHashHistory(),
   routes
 });
 
