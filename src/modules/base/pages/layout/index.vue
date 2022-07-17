@@ -1,5 +1,5 @@
 <template>
-  <div class="page-layout">
+  <div class="page-layout" :class="{ collapse: app.isFold }">
     <div class="page-layout__mask" @click="app.fold(true)"></div>
 
     <div class="page-layout__left">
@@ -24,37 +24,37 @@ const { app } = useBase();
 
 <style lang='scss' scoped>
 .page-layout {
-  display: flex;
-  background-color: #f7f7f7;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+	display: flex;
+	background-color: #f7f7f7;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
 
-  &__left {
-    overflow: hidden;
-    height: 100%;
-    width: 255px;
-    transition: left 0.2s;
-  }
+	&__left {
+		overflow: hidden;
+		height: 100%;
+		width: 255px;
+		transition: left 0.2s;
+	}
 
-  &__right {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: calc(100% - 255px);
-  }
+	&__right {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: calc(100% - 255px);
+	}
 
-  &__mask {
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    height: 100%;
-    width: 100%;
-    z-index: 999;
-  }
+	&__mask {
+		position: fixed;
+		left: 0;
+		top: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		height: 100%;
+		width: 100%;
+		z-index: 999;
+	}
 
-  @media only screen and (max-width: 768px) {
+	@media only screen and (max-width: 768px) {
 		.page-layout__left {
 			position: absolute;
 			left: 0;
@@ -76,7 +76,7 @@ const { app } = useBase();
 				display: none;
 			}
 		}
-  }
+	}
 
 	@media only screen and (min-width: 768px) {
 		.page-layout__left,

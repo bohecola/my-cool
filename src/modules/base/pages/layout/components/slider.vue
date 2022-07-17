@@ -6,7 +6,7 @@
 		</div>
 
 		<div class="app-slider__container">
-			<!-- <menu-nav /> -->
+			<menu-nav />
 		</div>
   </div>
 </template>

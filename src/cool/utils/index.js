@@ -1,5 +1,6 @@
 import { isArray, orderBy } from 'lodash';
 import storage from './storage';
+import module from "./module";
 
 // 首字母大写
 export function firstUpperCase(value) {
@@ -268,4 +269,4 @@ export function revDeepTree(list = []) {
 	return d;
 }
 
-export { storage };
+export { storage, module };

@@ -1,8 +1,9 @@
 import { createPinia } from 'pinia';
+import { useModule } from './module';
 import { router, viewer } from './router';
 import { useBase } from '/$/base';
 import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
+import "element-plus/theme-chalk/src/index.scss";
 
 export async function bootstrap(Vue) {
   // 缓存
@@ -13,6 +14,9 @@ export async function bootstrap(Vue) {
 
   // 基础
   const { app, user, menu } = useBase();
+
+  // 加载模块
+  useModule(Vue);
 
   // 取缓存视图
   viewer.add(menu.routes);
