@@ -3,7 +3,7 @@ import { useModule } from './module';
 import { router, viewer } from './router';
 import { useBase } from '/$/base';
 import ElementPlus from 'element-plus';
-import "element-plus/theme-chalk/src/index.scss";
+import 'element-plus/dist/index.css'
 
 export async function bootstrap(Vue) {
   // 缓存

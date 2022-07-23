@@ -16,15 +16,15 @@
     <div class="flex1"></div>
 
     <!-- 工具栏 -->
-		<!-- <ul class="app-topbar__tools">
-			<li>
+		<ul class="app-topbar__tools">
+			<!-- <li>
 				<cl-chat />
-			</li>
+			</li> -->
 
 			<li>
 				<cl-theme />
 			</li>
-		</ul> -->
+		</ul>
 
     <!-- 用户信息 -->
 		<div class="app-topbar__user" v-if="user.info">
